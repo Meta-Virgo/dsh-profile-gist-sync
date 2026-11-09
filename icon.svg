@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Config backup">
+  <defs>
+    <linearGradient id="dcsx-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f8ff7"/>
+      <stop offset="1" stop-color="#2b62d6"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#dcsx-sky)"/>
+  <path d="M22 27a9 9 0 0 1 17.6-2.6A7.2 7.2 0 0 1 44 38.4H23.4A6.2 6.2 0 0 1 22 27Z"
+        fill="#ffffff" opacity="0.95"/>
+  <g stroke="#1f4fb0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M32 52V40"/>
+    <path d="M27 45.5 32 40l5 5.5"/>
+  </g>
+  <g stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.9">
+    <path d="M18 46h6"/>
+    <path d="M40 46h6"/>
+  </g>
+</svg>

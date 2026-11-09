@@ -1,0 +1,8 @@
+# The plugin's own working state never belongs to the package: undo snapshots,
+# remembered Gist ids, and exports live in the profile, and this rule only
+# catches them if something points the plugin at this directory.
+.dsh-config-sync/
+node_modules/
+*.tgz
+*.log
+.DS_Store

@@ -1,0 +1,63 @@
+{
+  "name": "dsh-profile-gist-sync",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Back up this DSH profile's configuration to an unlisted secret GitHub Gist, pull it back on another machine, and see at a glance whether the two agree. · 把本机 DSH 配置备份到不公开列出的 secret GitHub Gist，在另一台机器上同步回来，并一眼看出两边是否一致。",
+  "icon": "icon.svg",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "test",
+    "assets",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "scripts": {
+    "test": "node test/run.mjs"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "config",
+    "backup",
+    "gist",
+    "sync",
+    "profile"
+  ],
+  "author": "Meta-Virgo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meta-Virgo/dsh-profile-gist-sync.git"
+  },
+  "homepage": "https://github.com/Meta-Virgo/dsh-profile-gist-sync#readme",
+  "bugs": {
+    "url": "https://github.com/Meta-Virgo/dsh-profile-gist-sync/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
