@@ -20,6 +20,7 @@
     "test",
     "assets",
     "cordis.patch.yml",
+    "screenshots.json",
     "locale/*.json",
     "icon.svg",
     "README.md",
