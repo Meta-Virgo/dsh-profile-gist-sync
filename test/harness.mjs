@@ -45,16 +45,20 @@ export function tempDir(prefix) {
  * A profile with the shape the exporter reads: a manifest, a patch layer, a
  * profile config, npm settings, `data/*.json`, and a `suppliers/` tree — plus a
  * credential store and a binary file, which must be dropped rather than carried.
+ *
+ * `dependencies` and `bundles`, when given, replace the manifest's own; that is
+ * how a check builds the profile the publisher's machine actually has — this
+ * plugin installed by path into a local checkout.
  */
-export function makeProfile(root) {
+export function makeProfile(root, { dependencies = null, bundles = null } = {}) {
   mkdirSync(join(root, 'data', 'auths'), { recursive: true })
   mkdirSync(join(root, 'suppliers'), { recursive: true })
   mkdirSync(join(root, 'node_modules', 'some-dep'), { recursive: true })
   writeFileSync(join(root, 'package.json'), `${JSON.stringify({
     name: 'dsh-profile-test',
     private: true,
-    dependencies: { 'some-plugin': '1.2.3' },
-    dsh: { profile: { bundles: ['@deepseek-ai/dsh-base'] } },
+    dependencies: dependencies ?? { 'some-plugin': '1.2.3' },
+    dsh: { profile: { bundles: bundles ?? ['@deepseek-ai/dsh-base'] } },
   }, null, 2)}\n`)
   writeFileSync(join(root, 'cordis.patch.yml'), '- insert:\n    - id: local-row\n      name: some-plugin\n')
   writeFileSync(join(root, 'cordis.yml'), 'plugins:\n  some-plugin: {}\n')

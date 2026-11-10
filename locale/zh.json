@@ -5,5 +5,14 @@
   },
   "tab": "配置同步",
   "title": "配置同步",
-  "subtitle": "把本机配置传到云端备份，或从云端同步回来。"
+  "subtitle": "把本机配置传到云端备份，或从云端同步回来。",
+  "plugins": "插件",
+  "pluginsHint": "备份不带插件本体。同步之后这里会列出还差的插件，可以一次装完。",
+  "pluginsInstall": "安装缺的插件",
+  "newMachineTitle": "第一次在另一台电脑上用",
+  "newMachineStep1": "在这台电脑装好这个插件，然后重启 DSH。",
+  "newMachineStep2": "用同一个 GitHub 账号给令牌：secret Gist 只有它的主人能通过 API 读到。",
+  "newMachineStep3": "打开这一页，点「从云端同步」，把配置取回来。",
+  "newMachineStep4": "同步后这里会列出还差的插件，点「安装缺的插件」一次装完，再重启 DSH。",
+  "tokenHelp": "令牌的三种给法和 gist 权限写在出错提示里。"
 }

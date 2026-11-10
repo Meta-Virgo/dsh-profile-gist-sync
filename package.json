@@ -1,6 +1,6 @@
 {
   "name": "dsh-profile-gist-sync",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "type": "module",
   "description": "Back up this DSH profile's configuration to an unlisted secret GitHub Gist, pull it back on another machine, and see at a glance whether the two agree. · 把本机 DSH 配置备份到不公开列出的 secret GitHub Gist，在另一台机器上同步回来，并一眼看出两边是否一致。",
   "icon": "icon.svg",

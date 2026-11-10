@@ -50,6 +50,8 @@ window.__ModuleLoader__.load({
         uploadAction: '上传到云端',
         exportAction: '另存为本地文件',
         uploaded: '✓ 已上传',
+        droppedTitle: '没上传的本机依赖',
+        droppedHint: '它们是本机路径，传到别的电脑只会指向不存在的目录。那边同步时会保留原有的写法。',
         filesUnit: '个文件',
         countsOverwrite: '覆盖',
         countsAdd: '新增',
@@ -100,8 +102,22 @@ window.__ModuleLoader__.load({
         'code.binary': '二进制',
         'code.too-large': '文件过大',
         'code.tool-state': '临时状态',
-        'err.auth': 'GitHub 拒绝了这次请求：令牌无效，或缺少 gist 权限。',
-        'err.notfound': '找不到这个 Gist，请核对 ID 或链接。',
+        'code.local-dependency': '本机路径依赖',
+        'err.auth': [
+          'GitHub 进不去：这个令牌不行。',
+          '可能是令牌无效或过期，可能少了 gist 权限，也可能它属于另一个 GitHub 账号',
+          '——secret Gist 只有它的主人能通过 API 读到。',
+          '',
+          '三种给令牌的方法，选一种：',
+          '1. 在本页「高级设置 → GitHub 令牌」粘贴一个，只用于这一次，不会保存；',
+          '2. 在启动 DSH 的环境里设 DSH_GITHUB_TOKEN，然后重启 DSH；',
+          '3. 装过 GitHub CLI 的话执行 gh auth login，插件会自动取 gh auth token。',
+          '',
+          '令牌要勾上 gist 权限：GitHub → Settings → Developer settings →',
+          'Personal access tokens → Tokens (classic) → Generate new token。',
+          '勾好 gist 的直达链接：https://github.com/settings/tokens/new?scopes=gist&description=DSH%20config%20sync',
+        ].join('\n'),
+        'err.notfound': '找不到这个 Gist：核对 ID 或链接，并确认令牌属于它的主人。',
         'err.rate-limit': 'GitHub 限流或权限不足，请稍后再试。',
         'err.invalid': '备份内容不合法，无法恢复。',
         'err.too-large': '备份超出大小上限。',
@@ -116,6 +132,31 @@ window.__ModuleLoader__.load({
         'source.request': '本次填写',
         'source.env': '环境变量',
         'source.gh': 'gh CLI',
+        pluginsTitle: '插件',
+        pluginsHint: '备份不带插件本体。同步之后这里会列出还差的插件。',
+        pluginsChecking: '正在看还缺哪些插件…',
+        pluginsUnknown: '这台机器查不了还缺哪些插件（DSH 没提供插件管理服务）。',
+        pluginsUnknownHint: '按「高级设置」里的换机步骤，手动把插件装上。',
+        pluginsAllPresent: '✓ 清单里声明的插件，这台机器上都有。',
+        pluginsMissing: '还差',
+        pluginsMissingUnit: '个插件没装',
+        pluginUnresolvedUnit: '个本机装不了',
+        pluginsInstall: '安装缺的插件',
+        pluginsInstalling: '正在安装…',
+        pluginsInstalledCount: '已安装',
+        pluginsPresentCount: '本来就有',
+        pluginsFailedCount: '失败',
+        pluginsSkippedCount: '跳过',
+        pluginsRestart: '装完重启 DSH 才会生效。',
+        pluginsDone: '✓ 装完了',
+        'note.local-path': '本机路径，这台机器装不了',
+        'note.workspace-protocol': 'workspace: 声明，这台机器装不了',
+        newMachineTitle: '第一次在另一台电脑上用',
+        newMachineStep1: '在这台电脑装好这个插件，然后重启 DSH。',
+        newMachineStep2: '用同一个 GitHub 账号给令牌：secret Gist 只有它的主人能通过 API 读到，换个账号只会得到「找不到」。',
+        newMachineStep3: '打开这一页，点「从云端同步」，把配置取回来。',
+        newMachineStep4: '同步后这里会列出还差的插件，点「安装缺的插件」一次装完，再重启 DSH。',
+        newMachineHint: '令牌的三种给法和 gist 权限，写在出错时的提示里。',
       },
       en: {
         tab: 'Config sync',
@@ -145,6 +186,8 @@ window.__ModuleLoader__.load({
         uploadAction: 'Upload to cloud',
         exportAction: 'Save as a local file',
         uploaded: '✓ Uploaded',
+        droppedTitle: 'machine-local dependencies left out',
+        droppedHint: 'They are paths on this machine; on another computer they would point at a directory that is not there. A sync there keeps whatever it already has.',
         filesUnit: 'files',
         countsOverwrite: 'overwrite',
         countsAdd: 'add',
@@ -195,8 +238,22 @@ window.__ModuleLoader__.load({
         'code.binary': 'binary',
         'code.too-large': 'too large',
         'code.tool-state': 'tool state',
-        'err.auth': 'GitHub refused this request: the token is invalid or lacks the gist scope.',
-        'err.notfound': 'No such Gist — check the id or link.',
+        'code.local-dependency': 'machine-local dependency',
+        'err.auth': [
+          'GitHub refused the token this machine offered.',
+          'It may be invalid or expired, it may lack the gist scope, or it may belong to another',
+          'GitHub account — a secret Gist is readable through the API only by its owner.',
+          '',
+          'Three ways to give it one, pick one:',
+          '1. paste one into 高级设置 → GitHub 令牌 on this page, used for that request only and never saved;',
+          '2. set DSH_GITHUB_TOKEN in the environment DSH starts with, then restart DSH;',
+          '3. if the GitHub CLI is installed, run gh auth login — this plugin reads gh auth token.',
+          '',
+          'The token needs the gist scope: GitHub → Settings → Developer settings →',
+          'Personal access tokens → Tokens (classic) → Generate new token.',
+          'Direct link with gist pre-ticked: https://github.com/settings/tokens/new?scopes=gist&description=DSH%20config%20sync',
+        ].join('\n'),
+        'err.notfound': 'No such Gist — check the id or link, and that the token owns it.',
         'err.rate-limit': 'GitHub rate-limited the request or the token lacks scope.',
         'err.invalid': 'That backup is not valid, so it was not restored.',
         'err.too-large': 'The backup is over the size limit.',
@@ -211,6 +268,31 @@ window.__ModuleLoader__.load({
         'source.request': 'entered here',
         'source.env': 'environment variable',
         'source.gh': 'gh CLI',
+        pluginsTitle: 'Plugins',
+        pluginsHint: 'A backup never carries plugin packages. After a sync, what is still missing is listed here.',
+        pluginsChecking: 'Checking which plugins are missing…',
+        pluginsUnknown: 'This machine cannot check which plugins are missing (DSH published no plugin manager).',
+        pluginsUnknownHint: 'Follow the new-machine steps in Advanced and install them by hand.',
+        pluginsAllPresent: '✓ Every plugin the manifest declares is on this machine.',
+        pluginsMissing: 'Missing:',
+        pluginsMissingUnit: 'plugins not installed',
+        pluginUnresolvedUnit: 'cannot be installed here',
+        pluginsInstall: 'Install the missing plugins',
+        pluginsInstalling: 'Installing…',
+        pluginsInstalledCount: 'installed',
+        pluginsPresentCount: 'already there',
+        pluginsFailedCount: 'failed',
+        pluginsSkippedCount: 'skipped',
+        pluginsRestart: 'Restart DSH after installing for them to take effect.',
+        pluginsDone: '✓ Finished',
+        'note.local-path': 'a local path — this machine cannot install it',
+        'note.workspace-protocol': 'a workspace: declaration — this machine cannot install it',
+        newMachineTitle: 'Using this on another computer the first time',
+        newMachineStep1: 'Install this plugin there, then restart DSH.',
+        newMachineStep2: 'Give it a token for the same GitHub account: a secret Gist is readable through the API only by its owner, so another account just gets "not found".',
+        newMachineStep3: 'Open this page and press “Sync from cloud” to bring the configuration over.',
+        newMachineStep4: 'What is still missing then appears here; press “Install the missing plugins” once, then restart DSH.',
+        newMachineHint: 'The three token sources and the gist scope are in the error message when something fails.',
       },
       'zh-CN': null,
     }
@@ -253,6 +335,10 @@ window.__ModuleLoader__.load({
 .dcsx-list li { display:flex; gap:10px; justify-content:space-between; padding:2px 0; border-bottom:1px dashed var(--dsw-alias-border-l1); font-size:12px; }
 .dcsx-path { font-family:inherit; word-break:break-all; }
 .dcsx-dim { color:var(--dsw-alias-label-secondary); flex:0 0 auto; }
+.dcsx-sub { display:flex; flex-direction:column; gap:6px; padding-top:8px; border-top:1px dashed var(--dsw-alias-border-l1); }
+.dcsx-subtitle { font-size:12.5px; font-weight:600; }
+.dcsx-steps { margin:0; padding-left:18px; display:flex; flex-direction:column; gap:4px; color:var(--dsw-alias-label-secondary); font-size:12.5px; }
+.dcsx-busy { color:var(--dsw-alias-label-secondary); }
 `
     let injected = false
     /** Add this page's stylesheet once per document. */
@@ -320,6 +406,11 @@ window.__ModuleLoader__.load({
       const [includeMachine, setIncludeMachine] = React.useState(false)
       const [statusError, setStatusError] = React.useState(null)
       const [showFiles, setShowFiles] = React.useState(false)
+      // `null` means "not asked yet", which is deliberately distinct from a
+      // payload with `available: false` — the page must not paint a green line
+      // for a question it has not put to the host.
+      const [plugins, setPlugins] = React.useState(null)
+      const [pluginReport, setPluginReport] = React.useState(null)
 
       const errorText = React.useCallback((error) => {
         const code = typeof error?.code === 'string' ? error.code : 'other'
@@ -373,6 +464,17 @@ window.__ModuleLoader__.load({
         }
       }, [errorText])
 
+      /** Which declared plugins this machine does not have yet. */
+      const checkPlugins = React.useCallback(async () => {
+        try {
+          setPlugins(await api('/plugins'))
+        } catch (error) {
+          // A host that cannot answer is not the same as a clean answer, and the
+          // page has to show which one it got.
+          setPlugins({ available: false, reason: 'unreachable', text: errorText(error) })
+        }
+      }, [errorText])
+
       /** A one-line result banner, defined before any render path uses it. */
       const noticeView = (value) => h('div', { className: `dcsx-notice dcsx-notice-${value.kind}` },
         value.text,
@@ -400,14 +502,22 @@ window.__ModuleLoader__.load({
             setNotice({ kind: 'error', text: errorText(error) })
           }
         })()
+        // Whether plugins are missing is worth knowing before any sync: it is
+        // what a fresh restore of a previous machine leaves behind.
+        void checkPlugins()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
 
       const upload = () => run('upload', async () => {
         const payload = await api('/gist/upload', { method: 'POST', body: { includeMachine } })
+        // A dependency left out of the upload is news the reader can only act on
+        // here: on the other machine it just silently will not be there.
+        const left = Array.isArray(payload.dropped) && payload.dropped.length > 0
+          ? `\n${t('droppedTitle')}：${payload.dropped.map(entry => `${entry.name}（${entry.spec}）`).join('、')}\n${t('droppedHint')}`
+          : ''
         setNotice({
           kind: 'ok',
-          text: `${t('uploaded')} ${payload.files} ${t('filesUnit')}（${formatBytes(payload.bytes)}）`,
+          text: `${t('uploaded')} ${payload.files} ${t('filesUnit')}（${formatBytes(payload.bytes)}）${left}`,
           href: payload.ref.htmlUrl ?? null,
         })
         await refresh()
@@ -427,8 +537,19 @@ window.__ModuleLoader__.load({
           kind: 'ok',
           text: `${t('synced')} ${payload.report.restored} ${t('filesUnit')}（${t('countsOverwrite')} ${counts.overwrite} · ${t('countsAdd')} ${counts.add} · ${t('countsIdentical')} ${counts.identical}）${skip}\n${t('restartHint')}`,
         })
+        setPluginReport(null)
         await refresh()
+        // A sync writes a manifest that may name plugins this machine lacks, so
+        // the question is asked again right after it, which is what makes the
+        // ③ card able to answer "what now?" without a second button press.
+        await checkPlugins()
         await checkCloud()
+      })
+
+      const installPlugins = () => run('plugins', async () => {
+        const payload = await api('/plugins/install', { method: 'POST', body: {} })
+        setPlugins(payload)
+        setPluginReport(payload)
       })
 
       const undo = () => run('undo', async () => {
@@ -499,7 +620,9 @@ window.__ModuleLoader__.load({
           kind: 'ok',
           text: `${t('imported')} ${payload.report.restored} ${t('filesUnit')}\n${t('restartHint')}`,
         })
+        setPluginReport(null)
         await refresh()
+        await checkPlugins()
       })
 
       if (status === null) {
@@ -558,6 +681,71 @@ window.__ModuleLoader__.load({
         ),
       )
 
+      /**
+       * What the manifest declares and this machine lacks.
+       *
+       * Lives inside the ③ card because that is where the question arises — a
+       * sync just wrote a plugin list here — and because it is the one thing to
+       * do next when the cloud copy named plugins. It never claims more than it
+       * knows: a host without a plugin manager says so in the same place, in the
+       * same words, rather than showing an empty list that reads as "all good".
+       */
+      const pluginsBlock = (() => {
+        if (plugins === null) {
+          return h('div', { className: 'dcsx-sub' },
+            h('div', { className: 'dcsx-hint dcsx-busy' }, t('pluginsChecking')),
+          )
+        }
+        if (plugins.available !== true) {
+          const detail = typeof plugins.text === 'string' ? plugins.text : ''
+          return h('div', { className: 'dcsx-sub' },
+            h('div', { className: 'dcsx-subtitle' }, t('pluginsTitle')),
+            h('div', { className: 'dcsx-verdict dcsx-warn' }, t('pluginsUnknown')),
+            detail === '' ? null : h('div', { className: 'dcsx-hint' }, detail),
+            h('div', { className: 'dcsx-hint' }, t('pluginsUnknownHint')),
+          )
+        }
+        const missing = Array.isArray(plugins.missing) ? plugins.missing : []
+        if (missing.length === 0) {
+          return h('div', { className: 'dcsx-sub' },
+            h('div', { className: 'dcsx-verdict dcsx-ok' }, t('pluginsAllPresent')),
+          )
+        }
+        const counts = plugins.counts ?? {}
+        const unresolved = Number.isFinite(counts.unresolved) ? counts.unresolved : 0
+        // What to show beside a name: the version it will install when this
+        // machine can install it at all, and the reason when it cannot.
+        const detailOf = (entry) => {
+          if (entry.resolvable !== true) return t(`note.${entry.note}`)
+          if (typeof entry.version === 'string') return entry.version
+          if (typeof entry.spec === 'string') return entry.spec
+          return ''
+        }
+        return h('div', { className: 'dcsx-sub' },
+          h('div', { className: 'dcsx-subtitle' }, t('pluginsTitle')),
+          h('div', { className: 'dcsx-verdict dcsx-warn' },
+            `${t('pluginsMissing')} ${missing.length} ${t('pluginsMissingUnit')}`
+            + (unresolved === 0 ? '' : `（${unresolved} ${t('pluginUnresolvedUnit')}）`)),
+          h('ul', { className: 'dcsx-list' },
+            missing.map(entry => h('li', { key: entry.name },
+              h('span', { className: 'dcsx-path' }, entry.name),
+              h('span', { className: 'dcsx-dim' }, detailOf(entry)),
+            )),
+          ),
+          h('div', { className: 'dcsx-hint' }, t('pluginsHint')),
+          h('div', { className: 'dcsx-actions' },
+            h('button', {
+              // Not a second primary: ③ keeps exactly one, its sync button. This
+              // is the follow-up that sync makes possible, not a competing path.
+              className: 'dcsx-btn',
+              onClick: installPlugins,
+              disabled,
+            }, busy === 'plugins' ? t('pluginsInstalling') : t('pluginsInstall')),
+          ),
+          pluginReport === null ? null : h('div', { className: 'dcsx-hint' }, outcomeText(pluginReport, t)),
+        )
+      })()
+
       const syncCard = h('div', { className: 'dcsx-card' },
         h('div', { className: 'dcsx-cardtitle' }, t('syncTitle')),
         h('div', { className: 'dcsx-hint' }, t('syncHint')),
@@ -570,6 +758,7 @@ window.__ModuleLoader__.load({
         status.undo === null
           ? null
           : h('div', { className: 'dcsx-hint' }, `${t('undoAvailable')}${formatTime(status.undo.createdAt)} · ${status.undo.files} ${t('filesLabel')}`),
+        pluginsBlock,
       )
 
       const pendingCard = pending === null ? null : h('div', { className: 'dcsx-card' },
@@ -611,6 +800,20 @@ window.__ModuleLoader__.load({
             h('button', { className: 'dcsx-btn', onClick: checkToken, disabled }, t('tokenCheck')),
           ),
           h('div', { className: 'dcsx-hint' }, t('tokenHint')),
+          // The checklist a reader needs precisely when the page has just told
+          // them something is wrong — a new machine with no token yet. It sits
+          // in the collapsed section rather than lengthening the three cards,
+          // which are the part that has to stay one button each.
+          h('div', { className: 'dcsx-sub' },
+            h('div', { className: 'dcsx-subtitle' }, t('newMachineTitle')),
+            h('ol', { className: 'dcsx-steps' },
+              h('li', null, t('newMachineStep1')),
+              h('li', null, t('newMachineStep2')),
+              h('li', null, t('newMachineStep3')),
+              h('li', null, t('newMachineStep4')),
+            ),
+            h('div', { className: 'dcsx-hint' }, t('newMachineHint')),
+          ),
           h('label', { className: 'dcsx-check' },
             h('input', {
               type: 'checkbox',
@@ -666,6 +869,31 @@ window.__ModuleLoader__.load({
         text: hasCloud ? t('notChecked') : t('cloudNone'),
         hint: null,
       }
+    }
+
+    /**
+     * One sentence about an install run, honest about each of the four outcomes.
+     *
+     * "Skipped" is not dressed up as success: those are the names this machine
+     * cannot install at all because the manifest records a path, and saying
+     * "done" over them would be the same lie as a green line over an unasked
+     * question. A failed spec is named with the manager's own diagnostic.
+     */
+    function outcomeText(report, t) {
+      const counts = report?.outcomeCounts ?? {}
+      const parts = []
+      if (counts.installed > 0) parts.push(`${counts.installed} ${t('pluginsInstalledCount')}`)
+      if (counts['already-present'] > 0) parts.push(`${counts['already-present']} ${t('pluginsPresentCount')}`)
+      if (counts.failed > 0) parts.push(`${counts.failed} ${t('pluginsFailedCount')}`)
+      if (counts.skipped > 0) parts.push(`${counts.skipped} ${t('pluginsSkippedCount')}`)
+      const results = Array.isArray(report?.results) ? report.results : []
+      const failures = results
+        .filter(result => result.outcome === 'failed' && typeof result.message === 'string' && result.message !== '')
+        .map(result => `${result.name}: ${result.message}`)
+      const lines = [`${t('pluginsDone')}${parts.length === 0 ? '' : ` · ${parts.join(' · ')}`}`]
+      if (failures.length > 0) lines.push(...failures)
+      if (report?.restart === true) lines.push(t('pluginsRestart'))
+      return lines.join('\n')
     }
 
     /** The included/excluded file lists behind the toggle. */

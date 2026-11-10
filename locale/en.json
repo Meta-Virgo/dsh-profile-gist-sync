@@ -5,5 +5,14 @@
   },
   "tab": "Config sync",
   "title": "Config sync",
-  "subtitle": "Send this machine's configuration to the cloud, or bring the cloud copy back here."
+  "subtitle": "Send this machine's configuration to the cloud, or bring the cloud copy back here.",
+  "plugins": "Plugins",
+  "pluginsHint": "A backup never carries plugin packages. After a sync, what is still missing is listed here and can be installed in one action.",
+  "pluginsInstall": "Install the missing plugins",
+  "newMachineTitle": "Using this on another computer the first time",
+  "newMachineStep1": "Install this plugin there, then restart DSH.",
+  "newMachineStep2": "Give it a token for the same GitHub account: a secret Gist is readable through the API only by its owner.",
+  "newMachineStep3": "Open this page and sync the cloud copy down.",
+  "newMachineStep4": "What is still missing then appears here; install it in one action, then restart DSH.",
+  "tokenHelp": "The three token sources and the gist scope are in the error message."
 }
